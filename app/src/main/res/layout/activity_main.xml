@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:background="@color/answerWindow"
         android:ems="10"
+        android:hint="Жми сюда"
         android:gravity="center_horizontal"
         android:inputType="number"
         android:textColor="@color/answerText"
@@ -72,7 +73,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.995"
-            app:layout_constraintStart_toEndOf="@+id/textView6"
+            app:layout_constraintStart_toEndOf="@+id/level"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="TextContrastCheck" />
@@ -119,6 +120,7 @@
             android:id="@+id/level"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginEnd="45dp"
             android:background="@color/resultWindow"
             android:gravity="center"
             android:text="1"
@@ -135,6 +137,7 @@
             android:id="@+id/numberAsk"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:layout_marginStart="280dp"
             android:background="@color/resultWindow"
             android:gravity="center"
             android:text="1"
@@ -160,6 +163,45 @@
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start" />
+
+        <TextView
+            android:id="@+id/levelText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="8dp"
+            android:text="Уровень:"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
+            app:layout_constraintEnd_toStartOf="@+id/level"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/counterText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="16dp"
+            android:text="№ примера:"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/start"
+            app:layout_constraintEnd_toStartOf="@+id/numberAsk" />
+
+        <Switch
+            android:id="@+id/tableMultiply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="switchRun"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:text="Таблица умножения"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resultWindow"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
