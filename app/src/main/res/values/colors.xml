@@ -19,4 +19,8 @@
     <color name="negativeText">#39DF1C</color>
     <color name="bottom">#9BD0FF</color>
     <color name="top">#B83DDA</color>
+    <color name="trueText">#1F8F17</color>
+    <color name="backgroundHead">#CA72F0</color>
+    <color name="startButton">#E9E5E4</color>
+    <color name="levelWindow">#EB473B</color>
 </resources>

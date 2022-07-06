@@ -1,46 +1,51 @@
 package ru.mikolaych.childscore;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
     private Integer result;
-    private String answerNumber;
-    private int counterPositive;
-    private int counterNegative;
     private int counterMain = 0;
-    private int level;
     private int counterPositiveWindow;
     private int counterNegativeWindow;
     private Boolean tableMultiplyStatus = false;
+    private int levelInt;
+    String numberAskCount;
+    String counterPosWrite;
+    String counterNegWrite;
+    String levelWrite;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        TextView example = findViewById(R.id.exerciseWindow);
-        int random1 = new Random().nextInt(9);
-        int random2 = new Random().nextInt(9);
-        String numberOne = Integer.toString(random1);
-        String numberTwo = Integer.toString(random2);
-        result = random1 + random2;
-        example.setText(numberOne + " + " + numberTwo);
+        TextView numberAsk = findViewById(R.id.numberAsk);
+        TextView counterPositive = findViewById(R.id.counterPositive);
+        TextView counterNegative = findViewById(R.id.counterNegative);
+        TextView level = findViewById(R.id.level);
+        if (savedInstanceState != null){
+            numberAskCount = savedInstanceState.getString("numberAskCount", "1");
+            counterPosWrite = savedInstanceState.getString("counterPosWrite", "0");
+            counterNegWrite = savedInstanceState.getString("counterNegWrite", "0");
+            levelWrite = savedInstanceState.getString("levelWrite", "1");
+            numberAsk.setText(numberAskCount);
+            counterPositive.setText(counterPosWrite);
+            counterNegative.setText(counterNegWrite);
+            level.setText(levelWrite);
+        }
+        int levelOnStart = 1;
+        levelInt = levelOnStart;
+        random(levelOnStart);
     }
 
     public void answer(View view) {
@@ -58,46 +63,46 @@ public class MainActivity extends AppCompatActivity {
             int numberFinal = Integer.parseInt(number);
             if (numberFinal == result) {
                 resultWindow.setText("Правильно!");
-                resultWindow.setTextColor(getResources().getColor(R.color.negativeText));
+                resultWindow.setTextColor(getResources().getColor(R.color.trueText));
                 String counterPos = counterPositive.getText().toString();
                 int counterPosInt = 1 + Integer.parseInt(counterPos);
                 counterPositiveWindow = counterPosInt;
-                String counterPosWrite = Integer.toString(counterPosInt);
+                counterPosWrite = Integer.toString(counterPosInt);
                 counterPositive.setText(counterPosWrite);
                 counterMain++;
                 String numberAskString = numberAsk.getText().toString();
                 int numberAskInt = 1 + Integer.parseInt(numberAskString);
-                String numberAskCount = Integer.toString(numberAskInt);
+                numberAskCount = Integer.toString(numberAskInt);
                 numberAsk.setText(numberAskCount);
                 answerWindow.setText("");
                 answerWindow.setHint("");
-                random(view);
-            } else if (numberFinal != result) {
+                random(levelInt);
+            } else {
                 resultWindow.setText("Неправильно!");
                 resultWindow.setTextColor(getResources().getColor(R.color.exerciseText));
                 String counterNeg = counterNegative.getText().toString();
                 int counterNegInt = 1 + Integer.parseInt(counterNeg);
                 counterNegativeWindow = counterNegInt;
-                String counterPosWrite = Integer.toString(counterNegInt);
-                counterNegative.setText(counterPosWrite);
+                counterNegWrite = Integer.toString(counterNegInt);
+                counterNegative.setText(counterNegWrite);
                 counterMain++;
                 String numberAskString = numberAsk.getText().toString();
                 int numberAskInt = 1 + Integer.parseInt(numberAskString);
-                String numberAskCount = Integer.toString(numberAskInt);
+                numberAskCount = Integer.toString(numberAskInt);
                 numberAsk.setText(numberAskCount);
                 answerWindow.setText("");
                 answerWindow.setHint("");
-                random(view);
+                random(levelInt);
             }
 
-            if (counterMain == 20) {
-                if ((counterPositiveWindow - counterNegativeWindow) >= 18) {
+            if (counterMain == 5) {
+                if ((counterPositiveWindow - counterNegativeWindow) >= 3) {
                     String levelRead = level.getText().toString();
-                    int levelInt = 1 + Integer.parseInt(levelRead);
+                    levelInt = 1 + Integer.parseInt(levelRead);
                     Toast toastLevelUp = Toast.makeText(this, "Ура! Новый уровень!", Toast.LENGTH_LONG);
                     toastLevelUp.setGravity(Gravity.TOP, 0, 0);
                     toastLevelUp.show();
-                    String levelWrite = Integer.toString(levelInt);
+                    levelWrite = Integer.toString(levelInt);
                     level.setText(levelWrite);
                     counterMain = 1;
                     numberAsk.setText("1");
@@ -107,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
                     counterNegativeWindow = 0;
                 } else {
                     String levelRead = level.getText().toString();
-                    int levelInt = Integer.parseInt(levelRead) - 1;
+                    levelInt = Integer.parseInt(levelRead) - 1;
                     Toast toastLevelDown = Toast.makeText(this, "Плохо! Уровень снижен!", Toast.LENGTH_LONG);
                     toastLevelDown.setGravity(Gravity.TOP, 0, 0);
                     toastLevelDown.show();
-                    String levelWrite = Integer.toString(levelInt);
+                    levelWrite = Integer.toString(levelInt);
                     level.setText(levelWrite);
                     counterMain = 1;
                     numberAsk.setText("1");
@@ -124,12 +129,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void random(View view) {
+    @SuppressLint("SetTextI18n")
+    public void random(int takeLevel) {
         TextView level = findViewById(R.id.level);
         TextView example = findViewById(R.id.exerciseWindow);
-        TextView resultWindow = findViewById(R.id.resultWindow);
-        String lev = level.getText().toString();
-        if (tableMultiplyStatus == false) {
+        String lev = Integer.toString(takeLevel);
+        if (!tableMultiplyStatus) {
             int limit1 = 0;
             int limit2 = 0;
             switch (lev) {
@@ -176,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
             }
             String numberOne = Integer.toString(random1);
             String numberTwo = Integer.toString(random2);
+
             switch (flag) {
                 case 1:
                     example.setText(numberOne + " + " + numberTwo);
@@ -188,12 +194,12 @@ public class MainActivity extends AppCompatActivity {
                     break;
             }
         } else{
-                int random3 = new Random().nextInt(9);
-                int random4 = new Random().nextInt(9);
-                result = random3 * random4;
-                String numberThree = Integer.toString(random3);
-                String numberFour = Integer.toString(random4);
-                example.setText(numberThree + " x " + numberFour);
+            int random3 = new Random().nextInt(9);
+            int random4 = new Random().nextInt(9);
+            result = random3 * random4;
+            String numberThree = Integer.toString(random3);
+            String numberFour = Integer.toString(random4);
+            example.setText(numberThree + " x " + numberFour);
         }
     }
 
@@ -205,4 +211,13 @@ public class MainActivity extends AppCompatActivity {
             tableMultiplyStatus = false;
         }
     }
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString("levelWrite", levelWrite);
+        outState.putString("counterPosWrite", counterPosWrite);
+        outState.putString("counterNegWrite", counterNegWrite);
+        outState.putString("numberAskCount", numberAskCount);
+    }
+
 }

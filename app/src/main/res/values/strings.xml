@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">ChildScore</string>
+    <string name="exerciseWindow">0</string>
+    <string name="answerWindowDefault">Жми сюда</string>
+    <string name="counterPositiveDefault">0</string>
+    <string name="counterNegativeDefault">0</string>
+    <string name="positiveHead">Верно</string>
+    <string name="negativeHead">Неверно</string>
+    <string name="startButton">Ответить</string>
+    <string name="levelDefault">1</string>
+    <string name="numberExerciseDefault">1</string>
+    <string name="levelHead">Уровень:</string>
+    <string name="numberExerciseHead">№ примера:</string>
+    <string name="checkBoxHead">Таблица умножения</string>
+    <string name="waveHead">Звук</string>
 </resources>
