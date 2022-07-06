@@ -23,4 +23,5 @@
     <color name="backgroundHead">#CA72F0</color>
     <color name="startButton">#E9E5E4</color>
     <color name="levelWindow">#EB473B</color>
+    <color name="backgroundBottom">#A3A3F4</color>
 </resources>
