@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/top"
+    android:background="@color/backgroundHead"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
@@ -12,13 +12,12 @@
     <TextView
         android:id="@+id/exerciseWindow"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:background="@color/exerciseWindow"
         android:gravity="center_horizontal"
-        android:hint="0"
         android:textColor="@color/exerciseText"
-        android:textSize="50sp"
+        android:textSize="@dimen/exerciseWindow"
         tools:ignore="TextContrastCheck" />
 
     <EditText
@@ -28,16 +27,16 @@
         android:background="@color/answerWindow"
         android:ems="10"
         android:gravity="center_horizontal"
-        android:hint="Жми"
+        android:hint="@string/answerWindowDefault"
         android:inputType="number"
         android:textColor="@color/answerText"
         android:textColorHint="@color/answerText"
-        android:textSize="40sp" />
+        android:textSize="@dimen/answerWindow" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/bottom">
+        android:background="@color/backgroundBottom">
 
         <TextView
             android:id="@+id/counterPositive"
@@ -47,10 +46,10 @@
             android:layout_marginTop="84dp"
             android:background="@color/positiveWindow"
             android:gravity="center"
-            android:text="0"
+            android:text="@string/counterPositiveDefault"
             android:textColor="@color/positiveText"
             android:textColorHint="@color/positiveText"
-            android:textSize="30sp"
+            android:textSize="@dimen/counters"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.072"
@@ -66,14 +65,12 @@
             android:layout_marginEnd="15dp"
             android:background="@color/negativeWindow"
             android:gravity="center"
-            android:text="0"
+            android:text="@string/counterNegativeDefault"
             android:textColor="@color/negativeText"
             android:textColorHint="@color/negativeText"
-            android:textSize="30sp"
+            android:textSize="@dimen/counters"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.995"
-            app:layout_constraintStart_toEndOf="@+id/level"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="TextContrastCheck" />
@@ -85,9 +82,9 @@
             android:layout_marginStart="15dp"
             android:layout_marginBottom="5dp"
             android:gravity="center"
-            android:text="Верно"
+            android:text="@string/positiveHead"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="@dimen/countersHead"
             app:layout_constraintBottom_toTopOf="@+id/counterPositive"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -97,9 +94,9 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="5dp"
-            android:text="Неверно"
+            android:text="@string/negativeHead"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            android:textSize="@dimen/countersHead"
             app:layout_constraintBottom_toTopOf="@+id/counterNegative"
             app:layout_constraintEnd_toEndOf="parent" />
 
@@ -108,16 +105,16 @@
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:layout_marginTop="68dp"
-            android:background="@drawable/gradient"
             android:insetLeft="0dp"
             android:insetTop="5dp"
             android:insetRight="0dp"
             android:insetBottom="5dp"
             android:onClick="answer"
-            android:text="Ответить"
-            android:textColor="@color/white"
-            android:textSize="20sp"
+            android:text="@string/startButton"
+            android:textSize="@dimen/startButton"
             app:backgroundTintMode="screen"
+            android:background="@drawable/gradient"
+            android:textColor="@color/startButton"
             app:layout_constraintEnd_toStartOf="@+id/counterNegative"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toEndOf="@+id/counterPositive"
@@ -126,32 +123,15 @@
             />
 
         <TextView
-            android:id="@+id/level"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="45dp"
-            android:background="@color/resultWindow"
-            android:gravity="center"
-            android:text="1"
-            android:textColor="@color/exerciseText"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/start"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.398"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.571" />
-
-        <TextView
             android:id="@+id/numberAsk"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_marginStart="280dp"
             android:background="@color/resultWindow"
             android:gravity="center"
-            android:text="1"
-            android:textColor="@color/exerciseText"
-            android:textSize="20sp"
+            android:text="@string/numberExerciseDefault"
+            android:textColor="@color/levelWindow"
+            android:textSize="@dimen/levelExercise"
             app:layout_constraintBottom_toTopOf="@+id/start"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.587"
@@ -163,39 +143,25 @@
             android:id="@+id/resultWindow"
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_marginTop="10dp"
             android:background="@color/resultWindow"
             android:gravity="center_horizontal"
             android:textColor="@color/resultText"
-            android:textSize="50sp"
+            android:textSize="@dimen/resultWindow"
+            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start" />
 
         <TextView
-            android:id="@+id/levelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="8dp"
-            android:text="Уровень:"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
-            app:layout_constraintEnd_toStartOf="@+id/level"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
             android:id="@+id/counterText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="16dp"
-            android:text="№ примера:"
+            android:layout_marginBottom="20dp"
+            android:text="@string/numberExerciseHead"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="@dimen/levelExercise"
             app:layout_constraintBottom_toTopOf="@+id/start"
             app:layout_constraintEnd_toStartOf="@+id/numberAsk" />
 
@@ -206,8 +172,10 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:onClick="switchRun"
-            android:text="Таблица умножения"
+            android:text="@string/checkBoxHead"
             android:textColor="@color/black"
+            android:height="48dp"
+            android:textSize="@dimen/countersHead"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
@@ -216,10 +184,56 @@
             android:id="@+id/sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="120dp"
-            android:text="Звук"
+            android:text="@string/waveHead"
+            android:textColor="@color/black"
+            android:textSize="@dimen/countersHead"
             app:layout_constraintEnd_toStartOf="@+id/tableMultiply"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow" />
+
+        <ImageView
+            android:id="@+id/star1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
+            app:layout_constraintEnd_toEndOf="@+id/counterPositive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/star2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
+            app:layout_constraintStart_toEndOf="@+id/star1"
+            app:srcCompat="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/star3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
+            app:layout_constraintStart_toEndOf="@+id/star2"
+            app:srcCompat="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/win"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/start"
+            app:layout_constraintStart_toEndOf="@+id/star1"
+            app:srcCompat="@drawable/win" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

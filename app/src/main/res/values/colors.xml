@@ -24,4 +24,7 @@
     <color name="startButton">#E9E5E4</color>
     <color name="levelWindow">#EB473B</color>
     <color name="backgroundBottom">#A3A3F4</color>
+    <color name="backgroundWinWrongActivity">#6CC968</color>
+    <color name="textWinWrong">#01520B</color>
+    <color name="textWinWrongBackground">#CA746D</color>
 </resources>

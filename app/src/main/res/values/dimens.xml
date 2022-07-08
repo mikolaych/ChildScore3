@@ -7,4 +7,6 @@
 <dimen name="startButton">20sp</dimen>
 <dimen name="levelExercise">20sp</dimen>
 <dimen name="resultWindow">50sp</dimen>
+    <dimen name="textWinWrong">50dp</dimen>
+    <dimen name="WinWrong">50dp</dimen>
 </resources>

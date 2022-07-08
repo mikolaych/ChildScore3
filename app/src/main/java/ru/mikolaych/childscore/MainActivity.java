@@ -2,14 +2,19 @@ package ru.mikolaych.childscore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -18,34 +23,36 @@ public class MainActivity extends AppCompatActivity {
     private int counterPositiveWindow;
     private int counterNegativeWindow;
     private Boolean tableMultiplyStatus = false;
-    private int levelInt;
+    private int levelInt = 1;
     String numberAskCount;
     String counterPosWrite;
     String counterNegWrite;
-    String levelWrite;
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
         setContentView(R.layout.activity_main);
+
         TextView numberAsk = findViewById(R.id.numberAsk);
         TextView counterPositive = findViewById(R.id.counterPositive);
         TextView counterNegative = findViewById(R.id.counterNegative);
-        TextView level = findViewById(R.id.level);
-        if (savedInstanceState != null){
+
+        if (savedInstanceState != null) {
             numberAskCount = savedInstanceState.getString("numberAskCount", "1");
             counterPosWrite = savedInstanceState.getString("counterPosWrite", "0");
             counterNegWrite = savedInstanceState.getString("counterNegWrite", "0");
-            levelWrite = savedInstanceState.getString("levelWrite", "1");
+            levelInt = savedInstanceState.getInt("levelInt", 1);
             numberAsk.setText(numberAskCount);
             counterPositive.setText(counterPosWrite);
             counterNegative.setText(counterNegWrite);
-            level.setText(levelWrite);
+            levelControl();
+            random();
         }
-        int levelOnStart = 1;
-        levelInt = levelOnStart;
-        random(levelOnStart);
+        random();
     }
 
     public void answer(View view) {
@@ -54,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         TextView counterPositive = findViewById(R.id.counterPositive);
         TextView counterNegative = findViewById(R.id.counterNegative);
         TextView numberAsk = findViewById(R.id.numberAsk);
-        TextView level = findViewById(R.id.level);
+
         String ifNull = answerWindow.getText().toString();
-        if (ifNull.length() < 1){
+        if (ifNull.length() < 1) {
             resultWindow.setText("Введи число!!!");
         } else {
             String number = answerWindow.getText().toString();
@@ -76,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 numberAsk.setText(numberAskCount);
                 answerWindow.setText("");
                 answerWindow.setHint("");
-                random(levelInt);
+                random();
             } else {
                 resultWindow.setText("Неправильно!");
                 resultWindow.setTextColor(getResources().getColor(R.color.exerciseText));
@@ -92,32 +99,31 @@ public class MainActivity extends AppCompatActivity {
                 numberAsk.setText(numberAskCount);
                 answerWindow.setText("");
                 answerWindow.setHint("");
-                random(levelInt);
+                random();
             }
 
-            if (counterMain == 5) {
-                if ((counterPositiveWindow - counterNegativeWindow) >= 3) {
-                    String levelRead = level.getText().toString();
-                    levelInt = 1 + Integer.parseInt(levelRead);
+            if (counterMain == 20) {
+                if (((counterPositiveWindow - counterNegativeWindow) >= 18) && levelInt != 4) {
+                    levelInt++;
+                    levelControl();
+                    random();
                     Toast toastLevelUp = Toast.makeText(this, "Ура! Новый уровень!", Toast.LENGTH_LONG);
                     toastLevelUp.setGravity(Gravity.TOP, 0, 0);
                     toastLevelUp.show();
-                    levelWrite = Integer.toString(levelInt);
-                    level.setText(levelWrite);
                     counterMain = 1;
                     numberAsk.setText("1");
                     counterPositive.setText("0");
                     counterNegative.setText("0");
                     counterPositiveWindow = 0;
                     counterNegativeWindow = 0;
-                } else {
-                    String levelRead = level.getText().toString();
-                    levelInt = Integer.parseInt(levelRead) - 1;
+                } else if (((counterPositiveWindow - counterNegativeWindow) < 18) && levelInt != 0) {
+
+                    levelInt--;
+                    levelControl();
+                    random();
                     Toast toastLevelDown = Toast.makeText(this, "Плохо! Уровень снижен!", Toast.LENGTH_LONG);
                     toastLevelDown.setGravity(Gravity.TOP, 0, 0);
                     toastLevelDown.show();
-                    levelWrite = Integer.toString(levelInt);
-                    level.setText(levelWrite);
                     counterMain = 1;
                     numberAsk.setText("1");
                     counterPositive.setText("0");
@@ -130,38 +136,25 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("SetTextI18n")
-    public void random(int takeLevel) {
-        TextView level = findViewById(R.id.level);
+    public void random() {
         TextView example = findViewById(R.id.exerciseWindow);
-        String lev = Integer.toString(takeLevel);
         if (!tableMultiplyStatus) {
             int limit1 = 0;
             int limit2 = 0;
-            switch (lev) {
-                case "0":
-                    Toast toastWrong = Toast.makeText(this, "Позор! Ты проиграл!", Toast.LENGTH_LONG);
-                    toastWrong.setGravity(Gravity.TOP, 0, 0);
-                    toastWrong.show();
-                    level.setText("1");
-                case "1":
+            switch (levelInt) {
+                case 1:
                     limit1 = 9;
                     limit2 = 1;
                     break;
-                case "2":
+                case 2:
                     limit1 = 10;
                     limit2 = 10;
                     break;
-                case "3":
+                case 3:
                     limit1 = 30;
                     limit2 = 20;
                     break;
-                case "4":
-                    Toast toastWin = Toast.makeText(this, "Поздравляем! Ты Выиграл!", Toast.LENGTH_LONG);
-                    toastWin.setGravity(Gravity.TOP, 0, 0);
-                    toastWin.show();
-                    level.setText("1");
-                    limit1 = 9;
-                    limit2 = 1;
+
             }
             int randomPlusMinus = new Random().nextInt(100);
             int random1 = new Random().nextInt(limit1) + limit2;
@@ -193,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     example.setText(numberTwo + " - " + numberOne);
                     break;
             }
-        } else{
+        } else {
             int random3 = new Random().nextInt(9);
             int random4 = new Random().nextInt(9);
             result = random3 * random4;
@@ -203,21 +196,71 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void levelControl(){
+        ImageView star1 = findViewById(R.id.star1);
+        ImageView star2 = findViewById(R.id.star2);
+        ImageView star3 = findViewById(R.id.star3);
+        ImageView win = findViewById(R.id.win);
+        switch (levelInt) {
+            case 0:
+                star1.setVisibility(View.GONE);
+                star2.setVisibility(View.GONE);
+                star3.setVisibility(View.GONE);
+                win.setVisibility(View.GONE);
+                levelInt = 1;
+                Intent wrongActivity = new Intent(this, WrongActivity.class);
+                startActivity(wrongActivity);
+                break;
+            case 1:
+                star1.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.GONE);
+                star3.setVisibility(View.GONE);
+                win.setVisibility(View.GONE);
+                break;
+            case 2:
+                star1.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.VISIBLE);
+                star3.setVisibility(View.GONE);
+                win.setVisibility(View.GONE);
+                break;
+            case 3:
+                star1.setVisibility(View.VISIBLE);
+                star2.setVisibility(View.VISIBLE);
+                star3.setVisibility(View.VISIBLE);
+                win.setVisibility(View.GONE);
+                break;
+            case 4:
+                star1.setVisibility(View.GONE);
+                star2.setVisibility(View.GONE);
+                star3.setVisibility(View.GONE);
+                win.setVisibility(View.VISIBLE);
+                levelInt = 1;
+                Intent winActivity = new Intent(this, WinActivity.class);
+                startActivity(winActivity);
+                break;
+        }
+
+    }
+
     public void switchRun(View view) {
-        boolean checked = ((Switch)view).isChecked();
-        if(checked){
+        boolean checked = ((Switch) view).isChecked();
+        if (checked) {
             tableMultiplyStatus = true;
+            levelInt = 1;
         } else {
             tableMultiplyStatus = false;
+            levelInt = 1;
         }
     }
+
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString("levelWrite", levelWrite);
         outState.putString("counterPosWrite", counterPosWrite);
         outState.putString("counterNegWrite", counterNegWrite);
         outState.putString("numberAskCount", numberAskCount);
+        outState.putInt("levelInt", levelInt);
+
     }
 
 }

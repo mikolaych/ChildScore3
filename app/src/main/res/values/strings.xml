@@ -11,6 +11,9 @@
     <string name="numberExerciseDefault">1</string>
     <string name="levelHead">Уровень:</string>
     <string name="numberExerciseHead">№ примера:</string>
-    <string name="checkBoxHead">Таблица умножения</string>
+    <string name="checkBoxHead">Умножение</string>
     <string name="waveHead">Звук</string>
+    <string name="winWrong">Ты победил!</string>
+    <string name="newGameButton">Начать сначала</string>
+    <string name="Wrong">Ты проиграл!</string>
 </resources>

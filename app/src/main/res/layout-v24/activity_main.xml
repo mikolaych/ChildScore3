@@ -12,11 +12,10 @@
     <TextView
         android:id="@+id/exerciseWindow"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="wrap_content"
         android:layout_marginVertical="10dp"
         android:background="@color/exerciseWindow"
         android:gravity="center_horizontal"
-        android:hint="@string/exerciseWindow"
         android:textColor="@color/exerciseText"
         android:textSize="@dimen/exerciseWindow"
         tools:ignore="TextContrastCheck" />
@@ -72,8 +71,6 @@
             android:textSize="@dimen/counters"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.995"
-            app:layout_constraintStart_toEndOf="@+id/level"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
             tools:ignore="TextContrastCheck" />
@@ -126,23 +123,6 @@
             />
 
         <TextView
-            android:id="@+id/level"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginEnd="45dp"
-            android:background="@color/resultWindow"
-            android:gravity="center"
-            android:text="@string/levelDefault"
-            android:textColor="@color/levelWindow"
-            android:textSize="@dimen/levelExercise"
-            app:layout_constraintBottom_toTopOf="@+id/start"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.398"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.571" />
-
-        <TextView
             android:id="@+id/numberAsk"
             android:layout_width="40dp"
             android:layout_height="40dp"
@@ -174,25 +154,11 @@
             app:layout_constraintTop_toBottomOf="@+id/start" />
 
         <TextView
-            android:id="@+id/levelText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:layout_marginBottom="8dp"
-            android:text="@string/levelHead"
-            android:textColor="@color/black"
-            android:textSize="@dimen/levelExercise"
-            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
-            app:layout_constraintEnd_toStartOf="@+id/level"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <TextView
             android:id="@+id/counterText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="20dp"
             android:text="@string/numberExerciseHead"
             android:textColor="@color/black"
             android:textSize="@dimen/levelExercise"
@@ -218,13 +184,56 @@
             android:id="@+id/sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:textSize="@dimen/countersHead"
-            android:layout_marginEnd="100dp"
-            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="120dp"
             android:text="@string/waveHead"
+            android:textColor="@color/black"
+            android:textSize="@dimen/countersHead"
             app:layout_constraintEnd_toStartOf="@+id/tableMultiply"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow" />
+
+        <ImageView
+            android:id="@+id/star1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
+            app:layout_constraintEnd_toEndOf="@+id/counterPositive"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/star2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
+            app:layout_constraintStart_toEndOf="@+id/star1"
+            app:srcCompat="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/star3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/positiveHead"
+            app:layout_constraintStart_toEndOf="@+id/star2"
+            app:srcCompat="@drawable/star" />
+
+        <ImageView
+            android:id="@+id/win"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginBottom="10dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/start"
+            app:layout_constraintStart_toEndOf="@+id/star1"
+            app:srcCompat="@drawable/win" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
