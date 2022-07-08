@@ -27,4 +27,9 @@
     <color name="backgroundWinWrongActivity">#6CC968</color>
     <color name="textWinWrong">#01520B</color>
     <color name="textWinWrongBackground">#CA746D</color>
+    <color name="textWrong">#D31406</color>
+    <color name="textWin">#0C4D07</color>
+    <color name="backgroundWinActivity">#3CD7EA</color>
+    <color name="backgroundWrongActivity">#FAACA6</color>
+    <color name="buttonNewGame">#093F02</color>
 </resources>

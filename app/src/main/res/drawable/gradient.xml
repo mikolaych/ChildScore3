@@ -7,6 +7,8 @@
         android:endColor="@color/positiveWindow"
         >
     </gradient>
+
+
     <corners
         android:radius="50dp">
     </corners>

@@ -16,8 +16,9 @@ public class WrongActivity extends AppCompatActivity {
     }
 
     public void newGame(View view) {
-        Button newGame = findViewById(R.id.newGameButton);
+        /*Button newGame = findViewById(R.id.newGameButton);
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(intent);*/
+        finish();
     }
 }

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundWinWrongActivity"
+    android:background="@color/backgroundWinActivity"
     tools:context=".WinActivity">
 
     <TextView
@@ -12,21 +12,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/winWrong"
+        android:textColor="@color/textWin"
         android:textSize="@dimen/WinWrong"
-        android:background="@color/textWinWrongBackground"
-        android:textColor="@color/textWinWrong"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/newGameButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="newGame"
         android:layout_marginTop="60dp"
+        app:cornerRadius="20dp"
         android:text="@string/newGameButton"
+        android:background="@drawable/gradient"
+        app:backgroundTintMode="screen"
+        android:textColor="@color/buttonNewGame"
         app:layout_constraintEnd_toEndOf="@+id/winWrongText"
         app:layout_constraintStart_toStartOf="@+id/winWrongText"
         app:layout_constraintTop_toBottomOf="@+id/winWrongText" />
@@ -39,5 +42,5 @@
         app:layout_constraintBottom_toTopOf="@+id/winWrongText"
         app:layout_constraintEnd_toEndOf="@+id/winWrongText"
         app:layout_constraintStart_toStartOf="@+id/winWrongText"
-        app:srcCompat="@drawable/kubok_small" />
+        app:srcCompat="@drawable/win_icon" />
 </androidx.constraintlayout.widget.ConstraintLayout>

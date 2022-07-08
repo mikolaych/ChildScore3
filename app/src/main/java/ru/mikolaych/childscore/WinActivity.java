@@ -17,8 +17,9 @@ public class WinActivity extends AppCompatActivity {
     }
 
     public void newGame(View view) {
-        Button NewGame = findViewById(R.id.newGameButton);
+       /* Button NewGame = findViewById(R.id.newGameButton);
         Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        startActivity(intent);*/
+        finish();
     }
 }
