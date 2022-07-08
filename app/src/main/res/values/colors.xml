@@ -32,4 +32,5 @@
     <color name="backgroundWinActivity">#3CD7EA</color>
     <color name="backgroundWrongActivity">#FAACA6</color>
     <color name="buttonNewGame">#093F02</color>
+    <color name="clock">#DA463B</color>
 </resources>

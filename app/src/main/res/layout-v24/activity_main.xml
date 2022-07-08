@@ -153,6 +153,18 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/start" />
 
+
+        <TextView
+            android:id="@+id/countDown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:textColor="@color/clock"
+            android:textSize="@dimen/clock"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resultWindow" />
+
         <TextView
             android:id="@+id/counterText"
             android:layout_width="wrap_content"
@@ -169,14 +181,14 @@
             android:id="@+id/tableMultiply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
             android:layout_marginTop="10dp"
-            android:layout_marginEnd="20dp"
+            android:height="48dp"
             android:onClick="switchRun"
             android:text="@string/checkBoxHead"
             android:textColor="@color/black"
-            android:height="48dp"
             android:textSize="@dimen/countersHead"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/countDown"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -184,12 +196,12 @@
             android:id="@+id/sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:layout_marginEnd="120dp"
+            android:layout_marginTop="9dp"
+            android:layout_marginEnd="50dp"
             android:text="@string/waveHead"
             android:textColor="@color/black"
             android:textSize="@dimen/countersHead"
-            app:layout_constraintEnd_toStartOf="@+id/tableMultiply"
+            app:layout_constraintEnd_toStartOf="@+id/countDown"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow" />
 
         <ImageView

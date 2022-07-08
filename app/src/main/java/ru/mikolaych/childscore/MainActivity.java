@@ -7,8 +7,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
+import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -27,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     String numberAskCount;
     String counterPosWrite;
     String counterNegWrite;
+    private Boolean contDownStart = true;
+
+
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -51,10 +57,13 @@ public class MainActivity extends AppCompatActivity {
             counterNegative.setText(counterNegWrite);
             levelControl();
             random();
+
         }
         random();
+        countDown();
     }
 
+                                        //Нажатие на кнопку Старт
     public void answer(View view) {
         EditText answerWindow = findViewById(R.id.answerWindow);
         TextView resultWindow = findViewById(R.id.resultWindow);
@@ -102,8 +111,9 @@ public class MainActivity extends AppCompatActivity {
                 random();
             }
 
-            if (counterMain == 20) {
-                if (((counterPositiveWindow - counterNegativeWindow) >= 18) && levelInt != 4) {
+                                                //Повышение уровня
+            if (counterMain == 5) {
+                if (((counterPositiveWindow - counterNegativeWindow) >= 3) && levelInt != 4) {
                     levelInt++;
                     levelControl();
                     random();
@@ -134,7 +144,27 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+                                            //СЧЕТЧИК
+    final void countDown() {
+        TextView countDown = findViewById(R.id.countDown);
+        new CountDownTimer(20000, 1000) {
+            @Override
+            public void onTick(long l) {
+                countDown.setText("Осталось: " + l/1000);
+            }
+            @Override
+            public void onFinish() {
+                countDown.setText("Время вышло!");
+                levelInt --;
+                levelControl();
+            }
+        }
+                .start();
 
+    }
+
+
+                                        //Генератор случайных чисел
     @SuppressLint("SetTextI18n")
     public void random() {
         TextView example = findViewById(R.id.exerciseWindow);
@@ -196,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+                                                //Контроль уровней
     public void levelControl(){
         ImageView star1 = findViewById(R.id.star1);
         ImageView star2 = findViewById(R.id.star2);
@@ -207,7 +238,6 @@ public class MainActivity extends AppCompatActivity {
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
                 win.setVisibility(View.GONE);
-                levelInt = 1;
                 Intent wrongActivity = new Intent(this, WrongActivity.class);
                 startActivity(wrongActivity);
                 break;
@@ -216,25 +246,27 @@ public class MainActivity extends AppCompatActivity {
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
                 win.setVisibility(View.GONE);
+                countDown();
                 break;
             case 2:
                 star1.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.VISIBLE);
                 star3.setVisibility(View.GONE);
                 win.setVisibility(View.GONE);
+                countDown();
                 break;
             case 3:
                 star1.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.VISIBLE);
                 star3.setVisibility(View.VISIBLE);
                 win.setVisibility(View.GONE);
+                countDown();
                 break;
             case 4:
                 star1.setVisibility(View.GONE);
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
                 win.setVisibility(View.VISIBLE);
-                levelInt = 1;
                 Intent winActivity = new Intent(this, WinActivity.class);
                 startActivity(winActivity);
                 break;
@@ -242,6 +274,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+                                            //Переключатель умножения
     public void switchRun(View view) {
         boolean checked = ((Switch) view).isChecked();
         if (checked) {
@@ -253,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+                                            //Сохранение данных
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
