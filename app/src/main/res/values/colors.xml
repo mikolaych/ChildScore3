@@ -20,13 +20,11 @@
     <color name="bottom">#9BD0FF</color>
     <color name="top">#B83DDA</color>
     <color name="trueText">#1F8F17</color>
-    <color name="backgroundHead">#CA72F0</color>
+    <color name="backgroundHead">#D3B1E2</color>
     <color name="startButton">#E9E5E4</color>
     <color name="levelWindow">#EB473B</color>
-    <color name="backgroundBottom">#A3A3F4</color>
-    <color name="backgroundWinWrongActivity">#6CC968</color>
+    <color name="backgroundBottom">#C2C2E1</color>
     <color name="textWinWrong">#01520B</color>
-    <color name="textWinWrongBackground">#CA746D</color>
     <color name="textWrong">#D31406</color>
     <color name="textWin">#0C4D07</color>
     <color name="backgroundWinActivity">#3CD7EA</color>

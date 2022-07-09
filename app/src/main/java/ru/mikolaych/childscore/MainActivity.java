@@ -1,23 +1,20 @@
 package ru.mikolaych.childscore;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.SystemClock;
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Chronometer;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,12 +24,13 @@ public class MainActivity extends AppCompatActivity {
     private int counterNegativeWindow;
     private Boolean tableMultiplyStatus = false;
     private int levelInt = 1;
+    private int numberOfExercise = 20;
+    private int numberOfError = 3;
     String numberAskCount;
     String counterPosWrite;
     String counterNegWrite;
-    private Boolean contDownStart = true;
-
-
+    CountDownTimer timer;
+    private MediaPlayer backgroundMusic;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -46,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         TextView numberAsk = findViewById(R.id.numberAsk);
         TextView counterPositive = findViewById(R.id.counterPositive);
         TextView counterNegative = findViewById(R.id.counterNegative);
+        backgroundMusic = MediaPlayer.create(this, R.raw.music);
 
         if (savedInstanceState != null) {
             numberAskCount = savedInstanceState.getString("numberAskCount", "1");
@@ -59,18 +58,40 @@ public class MainActivity extends AppCompatActivity {
             random();
 
         }
+//
+        play(backgroundMusic);
         random();
         countDown();
+
     }
 
-                                        //Нажатие на кнопку Старт
+                                //СЧЕТЧИК
+    public void countDown() {
+        TextView countDown = findViewById(R.id.countDown);
+        timer = new CountDownTimer(200000, 1000) {
+            @Override
+            public void onTick(long l) {
+                countDown.setText("Осталось: " + l / 1000 + " сек");
+            }
+
+            @Override
+            public void onFinish() {
+                countDown.setText("Время вышло!");
+                levelInt--;
+                levelControl();
+            }
+        }
+                .start();
+
+    }
+
+                        //Нажатие на кнопку Старт
     public void answer(View view) {
         EditText answerWindow = findViewById(R.id.answerWindow);
         TextView resultWindow = findViewById(R.id.resultWindow);
         TextView counterPositive = findViewById(R.id.counterPositive);
         TextView counterNegative = findViewById(R.id.counterNegative);
         TextView numberAsk = findViewById(R.id.numberAsk);
-
         String ifNull = answerWindow.getText().toString();
         if (ifNull.length() < 1) {
             resultWindow.setText("Введи число!!!");
@@ -111,60 +132,42 @@ public class MainActivity extends AppCompatActivity {
                 random();
             }
 
-                                                //Повышение уровня
-            if (counterMain == 5) {
-                if (((counterPositiveWindow - counterNegativeWindow) >= 3) && levelInt != 4) {
-                    levelInt++;
-                    levelControl();
-                    random();
-                    Toast toastLevelUp = Toast.makeText(this, "Ура! Новый уровень!", Toast.LENGTH_LONG);
-                    toastLevelUp.setGravity(Gravity.TOP, 0, 0);
-                    toastLevelUp.show();
-                    counterMain = 1;
-                    numberAsk.setText("1");
-                    counterPositive.setText("0");
-                    counterNegative.setText("0");
-                    counterPositiveWindow = 0;
-                    counterNegativeWindow = 0;
-                } else if (((counterPositiveWindow - counterNegativeWindow) < 18) && levelInt != 0) {
-
-                    levelInt--;
-                    levelControl();
-                    random();
-                    Toast toastLevelDown = Toast.makeText(this, "Плохо! Уровень снижен!", Toast.LENGTH_LONG);
-                    toastLevelDown.setGravity(Gravity.TOP, 0, 0);
-                    toastLevelDown.show();
-                    counterMain = 1;
-                    numberAsk.setText("1");
-                    counterPositive.setText("0");
-                    counterNegative.setText("0");
-                    counterPositiveWindow = 0;
-                    counterNegativeWindow = 0;
-                }
-            }
-        }
-    }
-                                            //СЧЕТЧИК
-    final void countDown() {
-        TextView countDown = findViewById(R.id.countDown);
-        new CountDownTimer(20000, 1000) {
-            @Override
-            public void onTick(long l) {
-                countDown.setText("Осталось: " + l/1000);
-            }
-            @Override
-            public void onFinish() {
-                countDown.setText("Время вышло!");
-                levelInt --;
+                            //Изменение уровня
+            if (counterMain == numberOfExercise && counterNegativeWindow < numberOfError) {
+                levelInt++;
                 levelControl();
+                random();
+                resetParameters();
+                Toast toastLevelUp = Toast.makeText(this, "Ура! Новый уровень!", Toast.LENGTH_LONG);
+                toastLevelUp.setGravity(Gravity.TOP, 0, 0);
+                toastLevelUp.show();
+
+            } else if (counterNegativeWindow >= numberOfError) {
+                levelInt--;
+                levelControl();
+                random();
+                resetParameters();
+                Toast toastLevelDown = Toast.makeText(this, "Плохо! Уровень снижен!", Toast.LENGTH_LONG);
+                toastLevelDown.setGravity(Gravity.TOP, 0, 0);
+                toastLevelDown.show();
             }
         }
-                .start();
+    }
+                                //Сброс параметров
+    public void resetParameters() {
+        TextView counterPositive = findViewById(R.id.counterPositive);
+        TextView counterNegative = findViewById(R.id.counterNegative);
+        TextView numberAsk = findViewById(R.id.numberAsk);
+        counterMain = 1;
+        numberAsk.setText("1");
+        counterPositive.setText("0");
+        counterNegative.setText("0");
+        counterPositiveWindow = 0;
+        counterNegativeWindow = 0;
 
     }
 
-
-                                        //Генератор случайных чисел
+                            //Генератор случайных чисел
     @SuppressLint("SetTextI18n")
     public void random() {
         TextView example = findViewById(R.id.exerciseWindow);
@@ -226,18 +229,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-                                                //Контроль уровней
-    public void levelControl(){
+                            //Контроль уровней
+    public void levelControl() {
         ImageView star1 = findViewById(R.id.star1);
         ImageView star2 = findViewById(R.id.star2);
         ImageView star3 = findViewById(R.id.star3);
-        ImageView win = findViewById(R.id.win);
         switch (levelInt) {
             case 0:
                 star1.setVisibility(View.GONE);
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
-                win.setVisibility(View.GONE);
                 Intent wrongActivity = new Intent(this, WrongActivity.class);
                 startActivity(wrongActivity);
                 break;
@@ -245,28 +246,27 @@ public class MainActivity extends AppCompatActivity {
                 star1.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
-                win.setVisibility(View.GONE);
-                countDown();
+                timer.cancel();
+                timer.start();
                 break;
             case 2:
                 star1.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.VISIBLE);
                 star3.setVisibility(View.GONE);
-                win.setVisibility(View.GONE);
-                countDown();
+                timer.cancel();
+                timer.start();
                 break;
             case 3:
                 star1.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.VISIBLE);
                 star3.setVisibility(View.VISIBLE);
-                win.setVisibility(View.GONE);
-                countDown();
+                timer.cancel();
+                timer.start();
                 break;
             case 4:
                 star1.setVisibility(View.GONE);
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
-                win.setVisibility(View.VISIBLE);
                 Intent winActivity = new Intent(this, WinActivity.class);
                 startActivity(winActivity);
                 break;
@@ -274,19 +274,25 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-                                            //Переключатель умножения
+                        //Переключатель умножения
     public void switchRun(View view) {
         boolean checked = ((Switch) view).isChecked();
         if (checked) {
             tableMultiplyStatus = true;
             levelInt = 1;
+            random();
+            levelControl();
+            resetParameters();
         } else {
             tableMultiplyStatus = false;
             levelInt = 1;
+            random();
+            levelControl();
+            resetParameters();
         }
     }
 
-                                            //Сохранение данных
+                        //Сохранение данных
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -297,4 +303,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+                        //Фоновая музыка
+    public void playMusic(View view) {
+        CheckBox music = findViewById(R.id.sound);
+        music.isChecked();
+        if (music.isChecked()){
+            play(backgroundMusic);
+        } else stop();
+    }
+    public void play(MediaPlayer music){
+        music.start();
+    }
+    public void stop(){
+        backgroundMusic.stop();
+    }
 }

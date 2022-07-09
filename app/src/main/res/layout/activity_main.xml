@@ -224,17 +224,6 @@
             app:layout_constraintStart_toEndOf="@+id/star2"
             app:srcCompat="@drawable/star" />
 
-        <ImageView
-            android:id="@+id/win"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/start"
-            app:layout_constraintStart_toEndOf="@+id/star1"
-            app:srcCompat="@drawable/win" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

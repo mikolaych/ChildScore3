@@ -105,16 +105,16 @@
             android:layout_width="150dp"
             android:layout_height="80dp"
             android:layout_marginTop="68dp"
+            android:background="@drawable/gradient"
             android:insetLeft="0dp"
             android:insetTop="5dp"
             android:insetRight="0dp"
             android:insetBottom="5dp"
             android:onClick="answer"
             android:text="@string/startButton"
+            android:textColor="@color/startButton"
             android:textSize="@dimen/startButton"
             app:backgroundTintMode="screen"
-            android:background="@drawable/gradient"
-            android:textColor="@color/startButton"
             app:layout_constraintEnd_toStartOf="@+id/counterNegative"
             app:layout_constraintHorizontal_bias="0.495"
             app:layout_constraintStart_toEndOf="@+id/counterPositive"
@@ -143,11 +143,11 @@
             android:id="@+id/resultWindow"
             android:layout_width="match_parent"
             android:layout_height="80dp"
+            android:layout_marginTop="10dp"
             android:background="@color/resultWindow"
             android:gravity="center_horizontal"
             android:textColor="@color/resultText"
             android:textSize="@dimen/resultWindow"
-            android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -158,10 +158,10 @@
             android:id="@+id/countDown"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dp"
             android:textColor="@color/clock"
             android:textSize="@dimen/clock"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow" />
 
@@ -181,27 +181,29 @@
             android:id="@+id/tableMultiply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="30dp"
             android:height="48dp"
             android:onClick="switchRun"
             android:text="@string/checkBoxHead"
             android:textColor="@color/black"
             android:textSize="@dimen/countersHead"
-            app:layout_constraintStart_toEndOf="@+id/countDown"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <CheckBox
             android:id="@+id/sound"
+            android:onClick="playMusic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:layout_marginEnd="50dp"
+            android:checked="true"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="40dp"
             android:text="@string/waveHead"
             android:textColor="@color/black"
             android:textSize="@dimen/countersHead"
-            app:layout_constraintEnd_toStartOf="@+id/countDown"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow" />
 
         <ImageView
@@ -235,17 +237,6 @@
             app:layout_constraintBottom_toTopOf="@+id/positiveHead"
             app:layout_constraintStart_toEndOf="@+id/star2"
             app:srcCompat="@drawable/star" />
-
-        <ImageView
-            android:id="@+id/win"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginBottom="10dp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toTopOf="@+id/start"
-            app:layout_constraintStart_toEndOf="@+id/star1"
-            app:srcCompat="@drawable/win" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

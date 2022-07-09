@@ -13,7 +13,7 @@
     <string name="numberExerciseHead">№ примера:</string>
     <string name="checkBoxHead">Умножение</string>
     <string name="waveHead">Звук</string>
-    <string name="winWrong">Ты победил!</string>
+    <string name="winWrong">Победа!</string>
     <string name="newGameButton">Начать сначала</string>
     <string name="Wrong">Ты проиграл!</string>
     <string name="clock">Осталось:</string>
