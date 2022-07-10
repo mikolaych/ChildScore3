@@ -17,4 +17,5 @@
     <string name="newGameButton">Начать сначала</string>
     <string name="Wrong">Ты проиграл!</string>
     <string name="clock">Осталось:</string>
+    <string name="timer">Таймер</string>
 </resources>

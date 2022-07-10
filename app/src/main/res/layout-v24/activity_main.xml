@@ -192,19 +192,20 @@
             app:layout_constraintTop_toBottomOf="@+id/resultWindow"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <CheckBox
+        <Switch
             android:id="@+id/sound"
-            android:onClick="playMusic"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="40dp"
-            android:text="@string/waveHead"
+            android:layout_marginTop="53dp"
+            android:checked="false"
+            android:onClick="playStopMusic"
             android:textColor="@color/black"
             android:textSize="@dimen/countersHead"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultWindow" />
+            app:layout_constraintTop_toBottomOf="@+id/resultWindow"
+            android:thumb="@drawable/music"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <ImageView
             android:id="@+id/star1"
@@ -237,6 +238,21 @@
             app:layout_constraintBottom_toTopOf="@+id/positiveHead"
             app:layout_constraintStart_toEndOf="@+id/star2"
             app:srcCompat="@drawable/star" />
+
+        <Switch
+            android:id="@+id/stopCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="countDownOnOff"
+            android:layout_marginTop="52dp"
+            android:text="@string/timer"
+            android:checked="true"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toStartOf="@+id/tableMultiply"
+            app:layout_constraintStart_toEndOf="@+id/sound"
+            app:layout_constraintTop_toBottomOf="@+id/resultWindow"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

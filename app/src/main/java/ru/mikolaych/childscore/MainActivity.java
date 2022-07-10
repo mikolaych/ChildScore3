@@ -1,7 +1,9 @@
 package ru.mikolaych.childscore;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -10,11 +12,13 @@ import android.os.CountDownTimer;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -26,11 +30,13 @@ public class MainActivity extends AppCompatActivity {
     private int levelInt = 1;
     private int numberOfExercise = 20;
     private int numberOfError = 3;
-    String numberAskCount;
-    String counterPosWrite;
-    String counterNegWrite;
-    CountDownTimer timer;
+    private String numberAskCount;
+    private String counterPosWrite;
+    private String counterNegWrite;
+    private CountDownTimer timer;
     private MediaPlayer backgroundMusic;
+    private Boolean timerOn = true;
+    private Boolean music = true;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -58,34 +64,49 @@ public class MainActivity extends AppCompatActivity {
             random();
 
         }
-//
-        play(backgroundMusic);
         random();
         countDown();
+        playMusic();
 
     }
+    //Вкл/выкл счетчика
+    public void countDownOnOff(View view){
+        Switch countdownOnOff = findViewById(R.id.stopCount);
+        if (countdownOnOff.isChecked()){
+            timerOn = true;
+            timer.start();
 
-                                //СЧЕТЧИК
+        } else{
+            timerOn = false;
+            timer.cancel();
+            countDown();
+        }
+    }
+
+    //СЧЕТЧИК
     public void countDown() {
         TextView countDown = findViewById(R.id.countDown);
-        timer = new CountDownTimer(200000, 1000) {
-            @Override
-            public void onTick(long l) {
-                countDown.setText("Осталось: " + l / 1000 + " сек");
-            }
+        if (timerOn) {
+            timer = new CountDownTimer(200000, 1000) {
+                @Override
+                public void onTick(long l) {
+                    countDown.setText("Осталось: " + l / 1000 + " сек");
+                }
 
-            @Override
-            public void onFinish() {
-                countDown.setText("Время вышло!");
-                levelInt--;
-                levelControl();
+                @Override
+                public void onFinish() {
+                    countDown.setText("Время вышло!");
+                    levelInt--;
+                    levelControl();
+                }
             }
-        }
-                .start();
+                    .start();
+        } else countDown.setText("");
+
 
     }
 
-                        //Нажатие на кнопку Старт
+       //Нажатие на кнопку Старт
     public void answer(View view) {
         EditText answerWindow = findViewById(R.id.answerWindow);
         TextView resultWindow = findViewById(R.id.resultWindow);
@@ -132,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 random();
             }
 
-                            //Изменение уровня
+            //Изменение уровня
             if (counterMain == numberOfExercise && counterNegativeWindow < numberOfError) {
                 levelInt++;
                 levelControl();
@@ -153,7 +174,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-                                //Сброс параметров
+
+    //Сброс параметров
     public void resetParameters() {
         TextView counterPositive = findViewById(R.id.counterPositive);
         TextView counterNegative = findViewById(R.id.counterNegative);
@@ -167,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-                            //Генератор случайных чисел
+    //Генератор случайных чисел
     @SuppressLint("SetTextI18n")
     public void random() {
         TextView example = findViewById(R.id.exerciseWindow);
@@ -229,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-                            //Контроль уровней
+    //Контроль уровней
     public void levelControl() {
         ImageView star1 = findViewById(R.id.star1);
         ImageView star2 = findViewById(R.id.star2);
@@ -274,10 +296,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-                        //Переключатель умножения
+    //Переключатель умножения
     public void switchRun(View view) {
-        boolean checked = ((Switch) view).isChecked();
-        if (checked) {
+        Switch multiply = findViewById(R.id.tableMultiply);
+        if (multiply.isChecked()) {
             tableMultiplyStatus = true;
             levelInt = 1;
             random();
@@ -292,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-                        //Сохранение данных
+    //Сохранение данных
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -304,17 +326,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
                         //Фоновая музыка
-    public void playMusic(View view) {
-        CheckBox music = findViewById(R.id.sound);
-        music.isChecked();
-        if (music.isChecked()){
-            play(backgroundMusic);
-        } else stop();
+    public void playStopMusic(View view) {
+        Switch sound = findViewById(R.id.sound);
+        if (sound.isChecked()){
+            music = false;
+            playMusic();
+        }else{
+            music = true;
+            playMusic();
+        }
     }
-    public void play(MediaPlayer music){
-        music.start();
+
+    public void playMusic() {
+        if (music) {
+            backgroundMusic.start();
+            backgroundMusic.setLooping(true);
+        } else backgroundMusic.stop();
     }
-    public void stop(){
+
+   /* public void stopMusic(){
+        backgroundMusic.stop();
+    }*/
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         backgroundMusic.stop();
     }
+
+
 }
