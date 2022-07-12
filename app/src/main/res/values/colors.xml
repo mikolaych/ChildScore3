@@ -12,7 +12,7 @@
     <color name="exerciseWindow">#073954</color>
     <color name="exerciseText">#CAB306</color>
     <color name="answerWindow">#294087</color>
-    <color name="answerText">#9CA9EC</color>
+    <color name="answerText">#000F58</color>
     <color name="positiveWindow">#44FF00</color>
     <color name="positiveText">#1C7B01</color>
     <color name="negativeWindow">#FD1430</color>
@@ -33,6 +33,4 @@
     <color name="clock">#275300</color>
     <color name="numberAsk">#CAB306</color>
     <color name="falseseText">#B91407</color>
-    <color name="frameBackground">#79011094</color>
-    <color name="frameCloseButton">#F3B1B1</color>
 </resources>
