@@ -12,7 +12,7 @@
     <color name="exerciseWindow">#073954</color>
     <color name="exerciseText">#CAB306</color>
     <color name="answerWindow">#294087</color>
-    <color name="answerText">#29B219</color>
+    <color name="answerText">#000F58</color>
     <color name="positiveWindow">#44FF00</color>
     <color name="positiveText">#1C7B01</color>
     <color name="negativeWindow">#FD1430</color>
