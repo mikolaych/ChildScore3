@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ChildScore</string>
     <string name="exerciseWindow">0</string>
-    <string name="answerWindowDefault">Твой ответ</string>
+    <string name="answerWindowDefault">Введи ответ</string>
     <string name="counterPositiveDefault">0</string>
     <string name="counterNegativeDefault">0</string>
     <string name="positiveHead">Верно</string>

@@ -12,10 +12,11 @@
     <TextView
         android:id="@+id/exerciseWindow"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:background="@color/exerciseWindow"
-        android:gravity="center_horizontal"
+        android:layout_height="80dp"
+        android:layout_marginBottom="3dp"
+        android:background="@drawable/stars"
+        android:gravity="bottom|center_horizontal"
+        android:text="5+8"
         android:textColor="@color/exerciseText"
         android:textSize="@dimen/exerciseWindow"
         tools:ignore="TextContrastCheck" />
@@ -38,13 +39,14 @@
         android:layout_height="match_parent"
         android:background="@color/backgroundBottom">
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/counterPositive"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginStart="-10dp"
+            app:backgroundTintMode="add"
             android:layout_marginTop="84dp"
-            android:background="@color/positiveWindow"
+            android:background="@drawable/poz_counters"
             android:gravity="center"
             android:text="@string/counterPositiveDefault"
             android:textColor="@color/positiveText"
@@ -57,13 +59,14 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/counterNegative"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="84dp"
             android:layout_marginEnd="15dp"
-            android:background="@color/negativeWindow"
+            app:backgroundTintMode="screen"
+            android:background="@drawable/neg_counters"
             android:gravity="center"
             android:text="@string/counterNegativeDefault"
             android:textColor="@color/negativeText"
@@ -114,6 +117,7 @@
             android:text="@string/startButton"
             android:textColor="@color/startButton"
             android:textSize="@dimen/startButton"
+            android:textStyle="bold"
             app:backgroundTintMode="screen"
             app:layout_constraintEnd_toStartOf="@+id/counterNegative"
             app:layout_constraintHorizontal_bias="0.495"
@@ -126,23 +130,20 @@
             android:id="@+id/numberAsk"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginStart="280dp"
-            android:background="@color/resultWindow"
+            android:layout_marginBottom="3dp"
+            android:background="@color/numberAsk"
             android:gravity="center"
             android:text="@string/numberExerciseDefault"
             android:textColor="@color/levelWindow"
             android:textSize="@dimen/levelExercise"
-            app:layout_constraintBottom_toTopOf="@+id/start"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.587"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.571" />
+            app:layout_constraintBottom_toTopOf="@+id/negativeHead"
+            app:layout_constraintEnd_toEndOf="@+id/counterNegative"
+            app:layout_constraintStart_toStartOf="@+id/counterNegative" />
 
         <TextView
             android:id="@+id/resultWindow"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
+            android:layout_height="60dp"
             android:layout_marginTop="10dp"
             android:background="@color/resultWindow"
             android:gravity="center_horizontal"
@@ -192,19 +193,19 @@
             app:layout_constraintTop_toBottomOf="@+id/resultWindow"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-        <Switch
+        <CheckBox
             android:id="@+id/sound"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
-            android:layout_marginTop="53dp"
-            android:checked="false"
-            android:onClick="playStopMusic"
+            android:layout_marginTop="43dp"
+            android:button="@drawable/checkbox"
+            android:checked="true"
+            android:onClick="music"
             android:textColor="@color/black"
             android:textSize="@dimen/countersHead"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow"
-            android:thumb="@drawable/music"
             tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <ImageView

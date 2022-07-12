@@ -10,6 +10,8 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Boolean timerOn = true;
     private Boolean music = true;
 
+
     @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             random();
 
         }
+
         random();
         countDown();
         playMusic();
@@ -81,6 +85,12 @@ public class MainActivity extends AppCompatActivity {
             timer.cancel();
             countDown();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     //СЧЕТЧИК
@@ -137,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 random();
             } else {
                 resultWindow.setText("Неправильно!");
-                resultWindow.setTextColor(getResources().getColor(R.color.exerciseText));
+                resultWindow.setTextColor(getResources().getColor(R.color.falseseText));
                 String counterNeg = counterNegative.getText().toString();
                 int counterNegInt = 1 + Integer.parseInt(counterNeg);
                 counterNegativeWindow = counterNegInt;
@@ -326,13 +336,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
                         //Фоновая музыка
-    public void playStopMusic(View view) {
-        Switch sound = findViewById(R.id.sound);
+    public void music(View view) {
+        CheckBox sound = findViewById(R.id.sound);
         if (sound.isChecked()){
-            music = false;
             playMusic();
-        }else{
-            music = true;
+        } else {
+            music = false;
             playMusic();
         }
     }
@@ -344,15 +353,29 @@ public class MainActivity extends AppCompatActivity {
         } else backgroundMusic.stop();
     }
 
-   /* public void stopMusic(){
-        backgroundMusic.stop();
-    }*/
+                            //Меню
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.add(0, 0, 0, "Выбор уровня");
+        return super.onPrepareOptionsMenu(menu);
+    }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId()==0){
+
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //OnPause
+
+    @Override
+    protected void onPause() {
+        super.onPause();
         backgroundMusic.stop();
     }
+
 
 
 }
