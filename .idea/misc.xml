@@ -5,17 +5,27 @@
       <map>
         <entry key="..\:/Info/comp/programming/Projects/ChildScore/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/drawable/checkbox.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/frameBackground.xml" value="0.1995" />
+        <entry key="app/src/main/res/drawable/frame_close_button.xml" value="0.166" />
         <entry key="app/src/main/res/drawable/gradient.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/music.xml" value="0.2035" />
+        <entry key="app/src/main/res/drawable/music_on.xml" value="0.1995" />
         <entry key="app/src/main/res/drawable/neg_counters.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/options.xml" value="0.169" />
+        <entry key="app/src/main/res/drawable/poz_counters.xml" value="0.169" />
         <entry key="app/src/main/res/drawable/poz_neg_counters.xml" value="0.171" />
         <entry key="app/src/main/res/drawable/rezult_window.xml" value="0.171" />
         <entry key="app/src/main/res/drawable/star.xml" value="0.171" />
+        <entry key="app/src/main/res/drawable/support.xml" value="0.166" />
+        <entry key="app/src/main/res/drawable/timer.xml" value="0.2035" />
         <entry key="app/src/main/res/layout-v24/activity_main.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_support.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_win.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_win_wrong.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/activity_wrong.xml" value="0.19791666666666666" />
         <entry key="app/src/main/res/layout/custom_toast.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_options.xml" value="0.33" />
       </map>
     </option>
   </component>

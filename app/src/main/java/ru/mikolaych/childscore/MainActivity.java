@@ -1,9 +1,8 @@
 package ru.mikolaych.childscore;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
-
+import androidx.fragment.app.FragmentTransaction;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -13,9 +12,10 @@ import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -39,6 +39,10 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer backgroundMusic;
     private Boolean timerOn = true;
     private Boolean music = true;
+    private FrameLayout frameLayout;
+    private Boolean startFrame = true;
+    OptionsFragment optionsFragment = new OptionsFragment();
+
 
 
     @SuppressLint("SetTextI18n")
@@ -53,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         TextView numberAsk = findViewById(R.id.numberAsk);
         TextView counterPositive = findViewById(R.id.counterPositive);
         TextView counterNegative = findViewById(R.id.counterNegative);
-        backgroundMusic = MediaPlayer.create(this, R.raw.music);
+
 
         if (savedInstanceState != null) {
             numberAskCount = savedInstanceState.getString("numberAskCount", "1");
@@ -65,39 +69,69 @@ public class MainActivity extends AppCompatActivity {
             counterNegative.setText(counterNegWrite);
             levelControl();
             random();
-
         }
-
         random();
-        countDown();
-        playMusic();
-
+        countDown(levelInt);
     }
+
+                 //Опции(фрагмент)
+    public void startFrame(View view) {
+            ImageView optionsButton = findViewById(R.id.optionsButton);
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        if (startFrame) {
+            ft.replace(R.id.frame_layout, optionsFragment);
+            ft.commit();
+            startFrame = false;
+            ft.addToBackStack(null);
+        } else {
+            ft.remove(optionsFragment);
+            ft.commit();
+            startFrame = true;
+        }
+    }
+
+                    //Закрыть фрагмент
+    public void closeFrame(View view) {
+        Button closeFragmentButton = findViewById(R.id.closeFragmentButton);
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.remove(optionsFragment);
+        ft.commit();
+        startFrame = true;
+    }
+
+
     //Вкл/выкл счетчика
     public void countDownOnOff(View view){
         Switch countdownOnOff = findViewById(R.id.stopCount);
         if (countdownOnOff.isChecked()){
             timerOn = true;
+            countDown(levelInt);
             timer.start();
 
         } else{
             timerOn = false;
             timer.cancel();
-            countDown();
+            countDown(0);
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    //СЧЕТЧИК
-    public void countDown() {
+                            //СЧЕТЧИК
+    public void countDown(int level) {
         TextView countDown = findViewById(R.id.countDown);
+        int time = 0;
+        switch (level){
+            case 0: time = 90000000;
+            case 1: time = 90000;
+            break;
+            case 6:
+            case 2: time = 120000;
+            break;
+            case 3: time = 180000;
+            break;
+
+        }
         if (timerOn) {
-            timer = new CountDownTimer(200000, 1000) {
+            timer = new CountDownTimer(time, 1000) {
                 @Override
                 public void onTick(long l) {
                     countDown.setText("Осталось: " + l / 1000 + " сек");
@@ -111,8 +145,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
                     .start();
-        } else countDown.setText("");
-
+        } else countDown.setText("Остановлен");
 
     }
 
@@ -163,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
                 random();
             }
 
-            //Изменение уровня
+                     //Изменение уровня
             if (counterMain == numberOfExercise && counterNegativeWindow < numberOfError) {
                 levelInt++;
                 levelControl();
@@ -185,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Сброс параметров
+                //Сброс параметров
     public void resetParameters() {
         TextView counterPositive = findViewById(R.id.counterPositive);
         TextView counterNegative = findViewById(R.id.counterNegative);
@@ -199,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //Генератор случайных чисел
+                 //Генератор случайных чисел
     @SuppressLint("SetTextI18n")
     public void random() {
         TextView example = findViewById(R.id.exerciseWindow);
@@ -261,70 +294,92 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //Контроль уровней
+                         //Контроль уровней
     public void levelControl() {
         ImageView star1 = findViewById(R.id.star1);
         ImageView star2 = findViewById(R.id.star2);
         ImageView star3 = findViewById(R.id.star3);
         switch (levelInt) {
             case 0:
+            case 5:
                 star1.setVisibility(View.GONE);
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
                 Intent wrongActivity = new Intent(this, WrongActivity.class);
                 startActivity(wrongActivity);
+                this.finish();
                 break;
             case 1:
                 star1.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
+                if (timerOn){
                 timer.cancel();
-                timer.start();
+                countDown(levelInt);
+                }
                 break;
             case 2:
                 star1.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.VISIBLE);
                 star3.setVisibility(View.GONE);
-                timer.cancel();
-                timer.start();
+                if (timerOn){
+                    timer.cancel();
+                    countDown(levelInt);
+                    }
                 break;
             case 3:
                 star1.setVisibility(View.VISIBLE);
                 star2.setVisibility(View.VISIBLE);
                 star3.setVisibility(View.VISIBLE);
-                timer.cancel();
-                timer.start();
+                if (timerOn){
+                    timer.cancel();
+                    countDown(levelInt);
+                   }
                 break;
             case 4:
+            case 7:
                 star1.setVisibility(View.GONE);
                 star2.setVisibility(View.GONE);
                 star3.setVisibility(View.GONE);
                 Intent winActivity = new Intent(this, WinActivity.class);
                 startActivity(winActivity);
+                this.finish();
                 break;
+            case 6:
+                star1.setVisibility(View.GONE);
+                star2.setVisibility(View.GONE);
+                star3.setVisibility(View.GONE);
+                if (timerOn){
+                    timer.cancel();
+                    countDown(6);
+                }
+                break;
+
         }
 
     }
 
-    //Переключатель умножения
+                    //Переключатель умножения
     public void switchRun(View view) {
         Switch multiply = findViewById(R.id.tableMultiply);
         if (multiply.isChecked()) {
             tableMultiplyStatus = true;
-            levelInt = 1;
+            levelInt = 6;
+            numberOfExercise = 40;
             random();
             levelControl();
             resetParameters();
         } else {
             tableMultiplyStatus = false;
             levelInt = 1;
+            numberOfExercise = 20;
             random();
             levelControl();
             resetParameters();
         }
     }
 
-    //Сохранение данных
+                    //Сохранение данных
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
@@ -339,43 +394,67 @@ public class MainActivity extends AppCompatActivity {
     public void music(View view) {
         CheckBox sound = findViewById(R.id.sound);
         if (sound.isChecked()){
-            playMusic();
+            music = true;
         } else {
             music = false;
-            playMusic();
+            backgroundMusic.stop();
         }
+        playMusic();
+
     }
 
     public void playMusic() {
+        backgroundMusic = MediaPlayer.create(this, R.raw.music);
         if (music) {
             backgroundMusic.start();
             backgroundMusic.setLooping(true);
-        } else backgroundMusic.stop();
+        }
+    }
+
+                            //Справка
+
+    public void openSupport(View view) {
+        ImageView supportButton = findViewById(R.id.supportButton);
+        Intent support = new Intent(this, SupportActivity.class);
+        startActivity(support);
     }
 
                             //Меню
-    @Override
+   /* @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        menu.add(0, 0, 0, "Выбор уровня");
+        menu.add(0, 0, 0, "Справка");
         return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId()==0){
+            Intent support = new Intent(this, SupportActivity.class);
+            startActivity(support);
+            finish();
 
         }
         return super.onOptionsItemSelected(item);
+    }*/
+
+                            //OnStart
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        playMusic();
+        timer.cancel();
+        countDown(levelInt);
     }
 
-    //OnPause
+                            //OnPause
 
     @Override
     protected void onPause() {
         super.onPause();
         backgroundMusic.stop();
+        timer.cancel();
     }
-
 
 
 }

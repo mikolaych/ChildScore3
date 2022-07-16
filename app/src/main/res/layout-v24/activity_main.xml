@@ -32,7 +32,8 @@
         android:inputType="number"
         android:textColor="@color/answerText"
         android:textColorHint="@color/answerText"
-        android:textSize="@dimen/answerWindow" />
+        android:textSize="@dimen/answerWindow"
+        tools:ignore="TextContrastCheck" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -41,29 +42,26 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/counterPositive"
-            android:layout_width="60dp"
+            android:layout_width="70dp"
             android:layout_height="60dp"
-            android:layout_marginStart="-10dp"
-            app:backgroundTintMode="add"
-            android:layout_marginTop="84dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="73dp"
             android:background="@drawable/poz_counters"
             android:gravity="center"
             android:text="@string/counterPositiveDefault"
             android:textColor="@color/positiveText"
             android:textColorHint="@color/positiveText"
             android:textSize="@dimen/counters"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.072"
+            app:backgroundTintMode="add"
+
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/counterNegative"
-            android:layout_width="60dp"
+            android:layout_width="70dp"
             android:layout_height="60dp"
-            android:layout_marginTop="84dp"
+            android:layout_marginTop="73dp"
             android:layout_marginEnd="15dp"
             app:backgroundTintMode="screen"
             android:background="@drawable/neg_counters"
@@ -72,7 +70,7 @@
             android:textColor="@color/negativeText"
             android:textColorHint="@color/negativeText"
             android:textSize="@dimen/counters"
-            app:layout_constraintBottom_toBottomOf="parent"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0"
@@ -106,7 +104,7 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/start"
             android:layout_width="150dp"
-            android:layout_height="80dp"
+            android:layout_height="70dp"
             android:layout_marginTop="68dp"
             android:background="@drawable/gradient"
             android:insetLeft="0dp"
@@ -129,8 +127,7 @@
         <TextView
             android:id="@+id/numberAsk"
             android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="3dp"
+            android:layout_height="30dp"
             android:background="@color/numberAsk"
             android:gravity="center"
             android:text="@string/numberExerciseDefault"
@@ -138,7 +135,8 @@
             android:textSize="@dimen/levelExercise"
             app:layout_constraintBottom_toTopOf="@+id/negativeHead"
             app:layout_constraintEnd_toEndOf="@+id/counterNegative"
-            app:layout_constraintStart_toStartOf="@+id/counterNegative" />
+            app:layout_constraintStart_toStartOf="@+id/counterNegative"
+            tools:ignore="TextContrastCheck" />
 
         <TextView
             android:id="@+id/resultWindow"
@@ -161,6 +159,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/clock"
             android:textSize="@dimen/clock"
+            android:text="bhjbhj"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -171,42 +170,12 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="30dp"
             android:text="@string/numberExerciseHead"
             android:textColor="@color/black"
             android:textSize="@dimen/levelExercise"
             app:layout_constraintBottom_toTopOf="@+id/start"
             app:layout_constraintEnd_toStartOf="@+id/numberAsk" />
-
-        <Switch
-            android:id="@+id/tableMultiply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="30dp"
-            android:height="48dp"
-            android:onClick="switchRun"
-            android:text="@string/checkBoxHead"
-            android:textColor="@color/black"
-            android:textSize="@dimen/countersHead"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultWindow"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-        <CheckBox
-            android:id="@+id/sound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="43dp"
-            android:button="@drawable/checkbox"
-            android:checked="true"
-            android:onClick="music"
-            android:textColor="@color/black"
-            android:textSize="@dimen/countersHead"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/resultWindow"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
         <ImageView
             android:id="@+id/star1"
@@ -240,20 +209,38 @@
             app:layout_constraintStart_toEndOf="@+id/star2"
             app:srcCompat="@drawable/star" />
 
-        <Switch
-            android:id="@+id/stopCount"
+        <FrameLayout
+            android:id="@+id/frame_layout"
+            android:layout_width="280dp"
+            android:layout_height="110dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/countDown">
+
+        </FrameLayout>
+
+        <ImageView
+            android:id="@+id/optionsButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:onClick="countDownOnOff"
-            android:layout_marginTop="52dp"
-            android:text="@string/timer"
-            android:checked="true"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/tableMultiply"
-            app:layout_constraintStart_toEndOf="@+id/sound"
+            android:layout_marginEnd="10dp"
+            android:onClick="startFrame"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/resultWindow"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            app:srcCompat="@drawable/options" />
+
+        <ImageView
+            android:id="@+id/supportButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:minWidth="48dp"
+            android:minHeight="48dp"
+            android:onClick="openSupport"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/resultWindow"
+            app:srcCompat="@drawable/support" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

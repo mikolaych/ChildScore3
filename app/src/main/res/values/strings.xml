@@ -11,11 +11,14 @@
     <string name="numberExerciseDefault">1</string>
     <string name="levelHead">Уровень:</string>
     <string name="numberExerciseHead">№ примера:</string>
-    <string name="checkBoxHead">Умножение</string>
+    <string name="checkBoxHead">X</string>
     <string name="waveHead">Звук</string>
     <string name="winWrong">Победа!</string>
     <string name="newGameButton">Начать сначала</string>
     <string name="Wrong">Ты проиграл!</string>
     <string name="clock">Осталось:</string>
     <string name="timer">Таймер</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="closeFrame">Закрыть</string>
 </resources>
