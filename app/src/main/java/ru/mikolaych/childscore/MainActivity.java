@@ -437,7 +437,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }*/
 
-                            //OnStart
+                            //OnStartMethod
 
     @Override
     protected void onStart() {
